@@ -1,0 +1,6 @@
+mysql-connector
+uvicorn
+fastapi
+requests
+google-cloud-storage
+configparser
