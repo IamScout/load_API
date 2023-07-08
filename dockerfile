@@ -8,4 +8,4 @@ RUN pip update -y
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD python app/main.py
+CMD python getData_api/main.py
