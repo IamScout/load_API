@@ -4,8 +4,8 @@ WORKDIR /api/app
 
 COPY . .
 
-RUN pip update -y
+RUN pip install --upgrade pip
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD python getData_api/main.py
+CMD python /api/app/main.py
