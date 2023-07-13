@@ -1,4 +1,4 @@
-
+import requests,json
 #무야호
 def make_json(uri, DIRECTORY):
     start_index = uri.find("io/") + 3
@@ -8,6 +8,7 @@ def make_json(uri, DIRECTORY):
         words = uri[start_index:end_index].split("/")
         english_words = [word for word in words if word.isalpha()]
         FILENAME = "-".join(english_words)
+        print(FILENAME)
 
     params = uri.split("&")
     for param in params:
@@ -20,7 +21,7 @@ def make_json(uri, DIRECTORY):
     }
     # GET RESPONSE
     response = requests.request("GET", uri, headers=headers).json()
-    # FILE WRITE
-    with open(f"{DIRECTORY}/{FILENAME}", "w") as file:
+    # FILE WRITEs
+    with open(f"{DIRECTORY}/{FILENAME}.json", "w") as file:
         json.dump(response, file, indent=4)
     return(FILENAME + " load is done")
