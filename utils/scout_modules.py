@@ -1,5 +1,6 @@
 import requests,json
-#무야호
+
+#RAW DATA 수집
 def make_json(uri, DIRECTORY):
     start_index = uri.find("io/") + 3
     end_index = uri.find("?")
@@ -8,7 +9,6 @@ def make_json(uri, DIRECTORY):
         words = uri[start_index:end_index].split("/")
         english_words = [word for word in words if word.isalpha()]
         FILENAME = "-".join(english_words)
-        print(FILENAME)
 
     params = uri.split("&")
     for param in params:
@@ -19,9 +19,15 @@ def make_json(uri, DIRECTORY):
         'x-rapidapi-host': "v3.football.api-sports.io",
         'x-rapidapi-key': "e6b9fb7ce7a7ad7b239595f76e546384"
     }
+
     # GET RESPONSE
     response = requests.request("GET", uri, headers=headers).json()
-    # FILE WRITEs
-    with open(f"{DIRECTORY}/{FILENAME}.json", "w") as file:
-        json.dump(response, file, indent=4)
-    return(FILENAME + " load is done")
+    
+    # FILE WRITE
+    try:
+        with open(f"{DIRECTORY}/{FILENAME}.json", "w") as file:
+            json.dump(response, file, indent=4)
+        return (FILENAME + " load is done")
+    except:
+        return (FILENAME + " load failed")
+
