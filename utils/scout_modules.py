@@ -31,3 +31,47 @@ def make_json(uri, DIRECTORY):
     except:
         return (FILENAME + " load failed")
 
+#당일 축구 경기 몇개있는지 확인하기
+def check_today_Fdata(file_dir, date):
+    import mysql.connector as mc
+    import os, subprocess
+
+    conn = mc.connect(user='root', password='tmzkdnxj1', host='34.64.200.213', database='pipeline_scout', port='3306')
+
+    cursor = conn.cursor()
+    QUERY = f"SELECT api_fixture_id FROM pipe_round WHERE date = '{date}'"
+    cursor.execute(QUERY)
+    fetched = cursor.fetchall()
+    today_round = len(fetched)
+
+    folder_path = file_dir
+    file_list = os.listdir(folder_path)
+    file_count = len(file_list)
+    
+    if file_count == today_round:
+
+        os.system(f'touch {file_dir}/DONE')
+        return "Check {file_dir} data success"
+    else:
+        return "Check {file_dir} data failed"
+
+def check_clean_data(file_dir, cnt):
+
+    folder_path = file_dir
+    file_list = os.listdir(folder_path)
+    file_count = len(file_list)
+
+    if file_count == cnt:
+        os.system(f'touch {file_dir}/DONE')
+        return "check {file_dir} data success"
+
+    else:
+        return "check {file_dir} data failed"
+
+
+
+
+
+
+
+
