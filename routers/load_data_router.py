@@ -46,7 +46,7 @@ async def get_players_data(league:str, team:str, season:str, page:str):
 @router.get("/leagues/")
 async def get_leagues_data(league: str, season:str):
     base_url = "https://v3.football.api-sports.io/leagues?id={}&season={}".format(league, season)
-    return make_json(bae_url, "/api/app/datas/json/season_23/leagues")
+    return make_json(base_url, "/api/app/datas/json/season_23/leagues")
 
 @router.get("/fixtures/")
 async def get_fixtures_data(league:str, season:str, date:str, timezone:str):

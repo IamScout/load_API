@@ -1,4 +1,4 @@
-import requests,json
+import requests,json,os
 
 #RAW DATA 수집
 def make_json(uri, DIRECTORY):
@@ -63,14 +63,10 @@ def check_clean_data(file_dir, cnt):
 
     if file_count == cnt:
         os.system(f'touch {file_dir}/DONE')
-        return "check {file_dir} data success"
+        return f"check {file_dir} data success"
 
     else:
-        return "check {file_dir} data failed"
-
-
-
-
+        return f"check {file_dir} data failed"
 
 
 
