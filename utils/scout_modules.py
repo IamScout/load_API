@@ -4,6 +4,11 @@ import requests,json,os
 
 #RAW DATA 수집
 def make_json(uri, DIRECTORY):
+    import configparser
+    config = configparser.ConfigParser()
+    config.read('config/config.ini')
+    api_key = config.get('SOCCER_API', 'API_KEY')
+
     start_index = uri.find("io/") + 3
     end_index = uri.find("?")
 
@@ -19,7 +24,7 @@ def make_json(uri, DIRECTORY):
             FILENAME += f"-{value}"
     headers = {
         'x-rapidapi-host': "v3.football.api-sports.io",
-        'x-rapidapi-key': "e6b9fb7ce7a7ad7b239595f76e546384"
+        'x-rapidapi-key': api_key
     }
 
     # GET RESPONSE
@@ -37,8 +42,25 @@ def make_json(uri, DIRECTORY):
 def check_today_Fdata(file_dir, date):
     import mysql.connector as mc
     import os, subprocess
+    import configparser
 
-    conn = mc.connect(user='root', password='tmzkdnxj1', host='34.64.200.213', database='pipeline_scout', port='3306')
+    config = configparser.ConfigParser()
+    config.read('config/config.ini')
+
+    mysql_host = config.get('MYSQL', 'MYSQL_HOST')
+    mysql_pwd = config.get('MYSQL', 'MYSQL_PWD')
+    mysql_port = config.get('MYSQL', 'MYSQL_PORT')
+    mysql_user = config.get('MYSQL', 'MYSQL_USER')
+    mysql_db = config.get('MYSQL', 'MYSQL_DB')
+
+    conn = mc.connect(
+        host=mysql_host,
+        port=mysql_port,
+        user=mysql_user,
+        password=mysql_pwd,
+        database=mysql_db
+    )
+    #conn = mc.connect(user='root', password='tmzkdnxj1', host='34.64.200.213', database='pipeline_scout', port='3306')
 
     cursor = conn.cursor()
     QUERY = f"SELECT api_fixture_id FROM pipe_round WHERE date = '{date}'"
