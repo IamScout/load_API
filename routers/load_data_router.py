@@ -9,7 +9,7 @@ data_dir = os.path.join(base_dir, 'datas','json', 'season_22')
 router = APIRouter()
 
 @router.get("/teams-statistics/")
-async def get_team_statics_data(le  ague:str, team:str, season:str, date:str):
+async def get_team_statics_data(league:str, team:str, season:str, date:str):
     base_url = "https://v3.football.api-sports.io/teams/statistics?league={}&team={}&season={}&date={}".format(league, team, season, date)
     return make_json(base_url, "/api/app/datas/json/season_22/teams_statistics")
 

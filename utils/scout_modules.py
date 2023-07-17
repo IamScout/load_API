@@ -1,5 +1,6 @@
+import shutil
 import requests,json,os
-from google.cloud import storage
+#from google.cloud import storage
 
 #RAW DATA 수집
 def make_json(uri, DIRECTORY):
@@ -49,9 +50,8 @@ def check_today_Fdata(file_dir, date):
     folder_path = file_dir
     file_list = os.listdir(folder_path)
     file_count = len(file_list)
-    
-    if file_count == today_round:
-
+    print(file_count)
+    if file_count == int(today_round):
         os.system(f'touch {file_dir}/DONE')
         return "Check {file_dir} data success"
     else:
@@ -62,11 +62,10 @@ def check_clean_data(file_dir, cnt):
     folder_path = file_dir
     file_list = os.listdir(folder_path)
     file_count = len(file_list)
+    if file_count == int(cnt):
 
-    if file_count == cnt:
         os.system(f'touch {file_dir}/DONE')
         return f"check {file_dir} data success"
-
     else:
         return f"check {file_dir} data failed"
 
@@ -116,6 +115,5 @@ def blob_data(point_dir):
             with open(local_file_path, 'rb') as file:
                 load_blob = blob.upload_from_file(file)
                 print(f"{local_file_path} uploaded to gs://{bucket_name}/{gcs_object_name}")
-
 
 
