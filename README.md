@@ -1,6 +1,7 @@
 # load_API
 축구 데이터를 수집하기위한 API server
 
+해당 서버는 airflow가 순수하게 cordinator 로 사용하기 위해 build 한 단순한 API 서버입니다.
 
 Projects 구조
 
