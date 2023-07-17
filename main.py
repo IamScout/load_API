@@ -1,11 +1,12 @@
 import uvicorn
 from fastapi import FastAPI
-from routers.load_data_router import *
-from routers.check_data_router import * 
+from routers.load_data_router import router as load_data_router
+from routers.check_data_router import router as check_data_router
 
 def create_app():
     app = FastAPI()
-    app.include_router(router)
+    app.include_router(load_data_router)
+    app.include_router(check_data_router)
     return app
 
 app = create_app()

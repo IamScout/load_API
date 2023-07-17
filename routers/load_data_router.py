@@ -40,7 +40,7 @@ async def get_squads_data(team:str):
 
 @router.get("/players/")
 async def get_players_data(league:str, team:str, season:str, page:str):
-    base_url = "https://v3.football.api-sports.io/players?league={}&team={}&season={}&page={}"
+    base_url = "https://v3.football.api-sports.io/players?league={}&team={}&season={}&page={}".format(league, team, season, page)
     return make_json(base_url, "/api/app/datas/json/season_22/players")
 
 @router.get("/leagues/")
