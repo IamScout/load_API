@@ -56,7 +56,6 @@ async def check_leagues_data(cnt:str):
 async def check_fixtures_data(cnt:str):
     return check_clean_data("/api/app/datas/json/season_22/fixtures", cnt)
 
-
 # 당일 경기 갯수
 @router.get("/check/fixtures-events/")
 async def check_events_data(date:str):
