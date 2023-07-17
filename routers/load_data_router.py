@@ -57,8 +57,7 @@ async def get_fixtures_data(league:str, season:str, date:str, timezone:str):
 @router.get("/fixtures-events/")
 async def get_events_data(fixture:str):
     base_url = "https://v3.football.api-sports.io/fixtures/events?fixture={}".format(fixture)
-    print(base_url)
-    #return make_json(base_url, "/api/app/datas/json/season_22/fixtures_events")
+    return make_json(base_url, "/api/app/datas/json/season_22/fixtures_events")
 
 @router.get("/fixtures-headtohead/")
 async def get_headtohead_data(h2h: str, date:str, timezone:str):
