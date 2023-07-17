@@ -8,6 +8,7 @@ data_dir = os.path.join(base_dir, 'datas','json', 'season_22')
 
 router = APIRouter()
 
+
 @router.get("/teams-statistics/")
 async def get_team_statics_data(league:str, team:str, season:str, date:str):
     base_url = "https://v3.football.api-sports.io/teams/statistics?league={}&team={}&season={}&date={}".format(league, team, season, date)
@@ -40,7 +41,7 @@ async def get_squads_data(team:str):
 
 @router.get("/players/")
 async def get_players_data(league:str, team:str, season:str, page:str):
-    base_url = "https://v3.football.api-sports.io/players?league={}&team={}&season={}&page={}"
+    base_url = "https://v3.football.api-sports.io/players?league={}&team={}&season={}&page={}".format(league, team, season, page)
     return make_json(base_url, "/api/app/datas/json/season_22/players")
 
 @router.get("/leagues/")
@@ -56,7 +57,8 @@ async def get_fixtures_data(league:str, season:str, date:str, timezone:str):
 @router.get("/fixtures-events/")
 async def get_events_data(fixture:str):
     base_url = "https://v3.football.api-sports.io/fixtures/events?fixture={}".format(fixture)
-    return make_json(base_url, "/api/app/datas/json/season_22/fixtures_events")
+    print(base_url)
+    #return make_json(base_url, "/api/app/datas/json/season_22/fixtures_events")
 
 @router.get("/fixtures-headtohead/")
 async def get_headtohead_data(h2h: str, date:str, timezone:str):

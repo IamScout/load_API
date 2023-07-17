@@ -4,6 +4,7 @@ import requests,json,os
 
 #RAW DATA 수집
 def make_json(uri, DIRECTORY):
+    print(uri)
     start_index = uri.find("io/") + 3
     end_index = uri.find("?")
 
@@ -50,13 +51,14 @@ def check_today_Fdata(file_dir, date):
     folder_path = file_dir
     file_list = os.listdir(folder_path)
     file_count = len(file_list)
-    print(file_count)
+
     if file_count == int(today_round):
         os.system(f'touch {file_dir}/DONE')
         return "Check {file_dir} data success"
     else:
         return "Check {file_dir} data failed"
 
+#디렉토리 파일 갯수 확인
 def check_clean_data(file_dir, cnt):
 
     folder_path = file_dir
@@ -91,8 +93,8 @@ def delete_directory_contents(directory):
 
 #경로 받아서 해당 디렉토리 데이터레이크 던지기
 def blob_data(point_dir):
-
-    json_path = 'C:/Users/user/PycharmProjects/soccer_pipe_line/pipeline_scout/humming-bird-383304-fa3fcb3047b6.json'
+    json_path = "/api/app/config/abstract-robot-390510-cb4515df5695.json"
+    #json_path = 'C:/Users/user/PycharmProjects/soccer_pipe_line/pipeline_scout/humming-bird-383304-fa3fcb3047b6.json'
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = json_path
 
     client = storage.Client()

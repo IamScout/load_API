@@ -9,8 +9,8 @@ router = APIRouter()
 
 # 88몇개 팀갯수 이새끼 다른함수 만들어야함
 @router.get("/check/teams-statistics/")
-async def check_team_statics_data(dir:str, cnt:str, date:str):
-    return 1
+async def check_team_statics_data(cnt:str):
+    return check_clean_data("api/app/datas/json/season_22/teams_statistics", cnt)
 
 #55개 리그 갯수
 @router.get("/check/teams/")
@@ -42,8 +42,8 @@ async def check_squads_data(cnt:str):
 
 # 5 * 팀 갯수
 @router.get("/check/players/")
-async def check_players_data(dir:str, cnt:str):
-    return 1
+async def check_players_data(cnt:str):
+    return check_clean_data("/api/app/datas/json/season_22/players", 4475)
 
 # 리그갯수
 @router.get("/check/leagues/")
