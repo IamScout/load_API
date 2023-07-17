@@ -92,7 +92,7 @@ def delete_directory_contents(directory):
 #경로 받아서 해당 디렉토리 데이터레이크 던지기
 def blob_data(point_dir):
 
-    json_path = 'C:/Users/user/PycharmProjects/soccer_pipe_line/pipeline_scout/humming-bird-383304-fa3fcb3047b6.json'
+    json_path = '/api/app/config/abstract-robot-390510-cb4515df5695.json'
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = json_path
 
     client = storage.Client()
@@ -115,5 +115,20 @@ def blob_data(point_dir):
             with open(local_file_path, 'rb') as file:
                 load_blob = blob.upload_from_file(file)
                 print(f"{local_file_path} uploaded to gs://{bucket_name}/{gcs_object_name}")
+
+#Done file 체크 함수
+def check_flag_directory(target_dir):
+    done_file_path = os.path.join(target_dir, 'DONE')
+    if os.path.isfile(done_file_path):
+        return True
+    else:
+        return False
+
+#file이 없을떄 반환해주는 함수
+def check_empty_directory(target_dir):
+    if not os.listdir(target_dir):
+        return True
+    else:
+        return False
 
 
