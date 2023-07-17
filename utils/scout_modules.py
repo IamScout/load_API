@@ -1,4 +1,5 @@
 import requests,json,os
+from google.cloud import storage
 
 #RAW DATA 수집
 def make_json(uri, DIRECTORY):
@@ -43,6 +44,7 @@ def check_today_Fdata(file_dir, date):
     cursor.execute(QUERY)
     fetched = cursor.fetchall()
     today_round = len(fetched)
+    conn.close()
 
     folder_path = file_dir
     file_list = os.listdir(folder_path)
@@ -68,6 +70,52 @@ def check_clean_data(file_dir, cnt):
     else:
         return f"check {file_dir} data failed"
 
+#디렉토리 데이터 클렌징
+def delete_directory_contents(directory):
+    # 디렉토리 존재 확인
+    if not os.path.exists(directory):
+        print(f"{directory} not exists!")
+        return
+
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            file_path = os.path.join(root, file)
+            try:
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(f"{file_path} deleting while err:", str(e))
+    
+    return (f"{directory} deleting complete")
+
+#경로 받아서 해당 디렉토리 데이터레이크 던지기
+def blob_data(point_dir):
+
+    json_path = 'C:/Users/user/PycharmProjects/soccer_pipe_line/pipeline_scout/humming-bird-383304-fa3fcb3047b6.json'
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = json_path
+
+    client = storage.Client()
+
+    bucket_name = 'scouter_dl'
+    bucket = client.get_bucket(bucket_name)
+
+    # API 데이터 경로
+    local_directory = point_dir
+
+    # 로컬 디렉토리의 모든 파일을 반복
+    for dirpath, dirs, files in os.walk(local_directory):
+        for file_name in files:
+            local_file_path = os.path.join(dirpath, file_name)
+        
+            gcs_object_name = local_file_path.replace(local_directory, '')
+            gcs_object_name = gcs_object_name.replace(os.path.sep, '/')
+            
+            blob = bucket.blob(gcs_object_name)
+            with open(local_file_path, 'rb') as file:
+                load_blob = blob.upload_from_file(file)
+                print(f"{local_file_path} uploaded to gs://{bucket_name}/{gcs_object_name}")
 
 
 
