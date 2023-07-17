@@ -49,7 +49,6 @@ async def check_players_data(cnt:str):
 async def check_leagues_data(cnt:str):
         return check_clean_data("/api/app/datas/json/season_22/leauges/", cnt)
 
-
 # 리그 갯수
 @router.get("/check/fixtures/")
 async def check_fixtures_data(cnt:str):
