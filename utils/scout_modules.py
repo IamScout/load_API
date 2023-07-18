@@ -1,6 +1,6 @@
 import shutil
 import requests,json,os
-#from google.cloud import storage
+from google.cloud import storage
 
 #RAW DATA 수집
 def make_json(uri, DIRECTORY):
@@ -94,10 +94,11 @@ def check_clean_data(file_dir, cnt):
 #디렉토리 데이터 클렌징
 def delete_directory_contents(directory):
     # 디렉토리 존재 확인
+    directory = '/' + directory
     if not os.path.exists(directory):
-        print(f"{directory} not exists!")
-        return
+        raise ValueError(f"{directory} does not exist!")
 
+    # 삭제 작업 수행
     for root, dirs, files in os.walk(directory):
         for file in files:
             file_path = os.path.join(root, file)
@@ -107,9 +108,9 @@ def delete_directory_contents(directory):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                print(f"{file_path} deleting while err:", str(e))
-    
-    return (f"{directory} deleting complete")
+                print(f"{file_path} deleting error:", str(e))
+
+    return f"{directory} deletion complete"
 
 #경로 받아서 해당 디렉토리 데이터레이크 던지기
 def blob_data(point_dir):
@@ -131,7 +132,7 @@ def blob_data(point_dir):
             local_file_path = os.path.join(dirpath, file_name)
         
             gcs_object_name = local_file_path.replace(local_directory, '')
-            gcs_object_name = gcs_object_name.replace(os.path.sep, '/')
+            gcs_object_name = gcs_object_name.replace(os.path.sep, '')
             
             blob = bucket.blob(gcs_object_name)
             with open(local_file_path, 'rb') as file:

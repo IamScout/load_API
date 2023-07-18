@@ -1,5 +1,6 @@
 import os
 from fastapi import APIRouter
+from utils.scout_modules import *
 from urllib.parse import unquote
 
 router = APIRouter()
