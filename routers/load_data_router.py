@@ -31,12 +31,12 @@ async def get_predictions_data(fixture: str):
 @router.get("/players-topscorers/")
 async def get_topscorers_data(league:str, season:str):
     base_url = "https://v3.football.api-sports.io/players/topscorers?league={}&season={}".format(league, season)
-    return make_json(base_url, "/api/app/datas/json/season_22/players-topscorers")    
+    return make_json(base_url, "/api/app/datas/json/season_22/players_topscorers")    
 
 @router.get("/players-squads/")
 async def get_squads_data(team:str):
     base_url = "https://v3.football.api-sports.io/players/squads?team={}".format(team)
-    return make_json(base_url, "/api/app/datas/json/season_22/players-squads")
+    return make_json(base_url, "/api/app/datas/json/season_22/players_squads")
 
 @router.get("/players/")
 async def get_players_data(league:str, team:str, season:str, page:str):
