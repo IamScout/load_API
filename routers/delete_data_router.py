@@ -22,6 +22,7 @@ directory_mappings = {
     "fixtures-statistics": "api/app/datas/json/season_22/fixtures_statistics",
 }
 
+
 @router.get("/delete/{directory}/")
 async def delete_directory_routes(directory: str):
     directory_path = directory_mappings.get(directory)

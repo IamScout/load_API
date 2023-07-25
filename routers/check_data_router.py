@@ -6,6 +6,8 @@ from urllib.parse import unquote
 router = APIRouter()
 
 # 팀갯수 895개 -> 리그갯수 55개
+# 가장 큰 문제 -> cnt 와 상관없이 curl 갯수가 상이함
+# 핸들링 할 수 없는 문제라, 그랩을 해서 처리해야하는것인가? -> 이중 삼중 미들웨어가 생길 가능성 농후
 
 # 88몇개 팀갯수 이새끼 다른함수 만들어야함
 @router.get("/check/teams-statistics/")
@@ -16,6 +18,7 @@ async def check_team_statics_data(cnt:str):
 @router.get("/check/teams/")
 async def check_team_data(cnt:str):
     return check_clean_data("/api/app/datas/json/season_22/teams/", cnt)
+
 
 #리그 갯수
 @router.get("/check/standings/")

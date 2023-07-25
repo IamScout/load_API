@@ -15,6 +15,7 @@ async def flag_check_data(target_dir:str):
 async def before_flag_check(target_dir:str):
     return check_empty_directory(target_dir)
 
+
 @router.get("/blob-data/")
 async def blob_to_dl(target_dir:str):
     return blob_data(target_dir)
