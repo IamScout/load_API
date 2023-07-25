@@ -123,7 +123,6 @@ def blob_data(point_dir):
     bucket_name = 'scouter_dl'
     bucket = client.get_bucket(bucket_name)
 
-    # API 데이터 경로
     local_directory = point_dir
 
     # 로컬 디렉토리의 모든 파일을 반복
@@ -139,7 +138,7 @@ def blob_data(point_dir):
                 load_blob = blob.upload_from_file(file)
                 print(f"{local_file_path} uploaded to gs://{bucket_name}/{gcs_object_name}")
 
-#Done file 체크 함수
+
 def check_flag_directory(target_dir):
     done_file_path = os.path.join(target_dir, 'DONE')
     if os.path.isfile(done_file_path):
